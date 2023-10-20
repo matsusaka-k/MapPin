@@ -26,5 +26,13 @@ public class Home extends AppCompatActivity {
             ・ファイル追加時は一言松坂にください
          */
 
+        //位置情報の取得 パーミッションでユーザに確認すること
+
+
+
+
+
+
+
     }
 }
