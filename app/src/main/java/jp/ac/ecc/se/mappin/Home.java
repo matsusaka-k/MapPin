@@ -3,6 +3,9 @@ package jp.ac.ecc.se.mappin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 public class Home extends AppCompatActivity {
 
@@ -25,6 +28,13 @@ public class Home extends AppCompatActivity {
             ・画像はdrawableに収納すること
             ・ファイル追加時は一言松坂にください
          */
+//        Button contribution_button = findViewById(R.id.contribution_button);
 
+//        contribution_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(PostPreparation);
+//            }
+//        });
     }
 }
