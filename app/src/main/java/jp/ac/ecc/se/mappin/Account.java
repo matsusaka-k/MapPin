@@ -3,6 +3,9 @@ package jp.ac.ecc.se.mappin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 public class Account extends AppCompatActivity {
 
@@ -24,6 +27,16 @@ public class Account extends AppCompatActivity {
             ・画像はdrawableに収納すること
             ・ファイル追加時は一言松坂にください
          */
-
+//
+//        Button follower_button  = findViewById(R.id.follower_button);
+//        Button following_button = findViewById(R.id.following_button);
+//
+//
+//        follower_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(FollowList);
+//            }
+//        });
     }
 }

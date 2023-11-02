@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">MapPin</string>
+
     <string name="title_activity_maps">MapsActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ID_text" />
+    <string name="user_id">ID</string>
+    <string name="user_name">NAME</string>
+    <string name="E_mail">メールアドレス</string>
+    <string name="user_name1">名前</string>
+    <string name="password">パスワード</string>
 </resources>
