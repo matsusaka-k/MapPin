@@ -7,6 +7,10 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -31,12 +35,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     FusedLocationProviderClient fusedLocationProviderClient;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // ImageButton1を宣言および初期化
+        ImageButton imageButton1 = findViewById(R.id.imageButton);
+
+        if (imageButton1 != null) {
+            imageButton1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 新しいレイアウトに切り替える
+                    setContentView(R.layout.user_post);
+                }
+            });
+        } else {
+            // もしImageButtonが見つからなかった場合のエラーハンドリング
+            Log.e("MapsActivity", "ImageButton1 not found");
+        }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
@@ -44,7 +62,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
     }
+
+
 
 
     //位置情報
@@ -93,9 +116,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             // currentLocationがnullの場合の処理
         }
-
-
-
 //    //        ここでマーカーの色を自由に決めれる
 //            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 //            mMap.addMarker(options);
@@ -103,7 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
+//場所の情報の取得
     @Override
     public void onPoiClick(PointOfInterest poi) {
         Toast.makeText(this, "場所：" +
