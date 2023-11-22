@@ -23,6 +23,15 @@
         tools:targetApi="34">
 
         <activity
+            android:name=".SampleConnect"
+            android:exported="true">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+        </activity>
+        <activity
             android:name=".MapsActivity"
             android:exported="true">
 <!--        <intent-filter>-->
@@ -37,20 +46,15 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKdiKpd3S6rpLklsFy0n6_7pD6C7ZsInw" />
-
-
         <activity
             android:name=".Account"
             android:exported="true">
@@ -59,6 +63,7 @@
                 android:value="" />
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
+
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
@@ -84,9 +89,6 @@
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-
-
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
@@ -96,14 +98,12 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-
 
         </activity>
     </application>
