@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateAcount">
+    tools:context=".CreateAcount"
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/Create_text"
@@ -19,8 +20,8 @@
 
     <EditText
         android:id="@+id/ID_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/user_id"
@@ -32,7 +33,7 @@
 
     <EditText
         android:id="@+id/Name_text"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="0dp"
         android:ems="10"
         android:hint="@string/user_name1"
@@ -44,7 +45,7 @@
 
     <EditText
         android:id="@+id/Address_text"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="0dp"
         android:ems="10"
         android:hint="@string/E_mail"
@@ -54,7 +55,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Name_text" />
 
-
+    <EditText
+        android:id="@+id/Password_text"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Address_text" />
 
     <Button
         android:id="@+id/getIcon_Button"
@@ -96,14 +107,5 @@
         app:layout_constraintEnd_toEndOf="@+id/Icon_image"
         app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
-    <EditText
-        android:id="@+id/Password_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/Address_text"
-        tools:layout_editor_absoluteX="29dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,6 @@
     <string name="E_mail">メールアドレス</string>
     <string name="user_name1">名前</string>
     <string name="password">パスワード</string>
+    <string name="newsign">新規登録</string>
+    <string name="login">ログイン</string>
 </resources>
