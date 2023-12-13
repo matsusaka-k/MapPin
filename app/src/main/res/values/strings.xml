@@ -12,4 +12,9 @@
     <string name="password">パスワード</string>
     <string name="newsign">新規登録</string>
     <string name="login">ログイン</string>
+    <string name="time">時間の表示</string>
+    <string name="PostText">投稿文の表示</string>
+    <string name="smile">笑顔ボタン</string>
+    <string name="good">いいねボタン</string>
+    <string name="back">戻るボタン</string>
 </resources>
