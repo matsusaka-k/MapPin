@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission."/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 位置情報の正確な位置の利用許可-->
@@ -22,15 +23,15 @@
         android:theme="@style/Theme.MapPin"
         tools:targetApi="34">
 
-        <activity
-            android:name=".SampleConnect"
-            android:exported="true">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
+<!--        <activity-->
+<!--            android:name=".SampleConnect"-->
+<!--            android:exported="true">-->
+<!--&lt;!&ndash;                    <intent-filter>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
 
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-        </activity>
+<!--&lt;!&ndash;                        <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+<!--&lt;!&ndash;                    </intent-filter>&ndash;&gt;-->
+<!--        </activity>-->
         <activity
             android:name=".MapsActivity"
             android:exported="true">
@@ -46,11 +47,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -86,11 +87,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity
             android:name=".Home"

@@ -28,19 +28,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/location_text"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="位置情報"
+        android:gravity="center"
+        android:textColor="@color/black"
         android:inputType="textPersonName"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/location_image"
-        app:layout_constraintTop_toBottomOf="@+id/post_image" />
+        app:layout_constraintTop_toBottomOf="@+id/camera_Button" />
 
     <ImageView
         android:id="@+id/location_image"
@@ -53,12 +54,13 @@
 
     <EditText
         android:id="@+id/comment_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="418dp"
+        android:layout_height="244dp"
         android:background="@null"
         android:ems="10"
+        android:gravity="start"
         android:hint="コメント"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
