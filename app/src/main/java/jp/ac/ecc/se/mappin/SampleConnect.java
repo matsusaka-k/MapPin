@@ -1,18 +1,13 @@
 package jp.ac.ecc.se.mappin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
@@ -21,13 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
-import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -73,7 +63,7 @@ public class SampleConnect extends AppCompatActivity {
 /**/
 ///////////////////////////////// リクエストが失敗した場合の処理を実装 /////////////////////////////////////////////
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(okhttp3.Call call, IOException e) {
                         // runOnUiThreadメソッドを使うことでUIを操作することができる。(postメソッドでも可)
 
                         runOnUiThread(new Runnable() {
@@ -86,7 +76,7 @@ public class SampleConnect extends AppCompatActivity {
 
 /////////////////////////////////////////// リクエストが成功した場合の処理を実装//////////////////////////////////
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(okhttp3.Call call, Response response) throws IOException {
                         String body = response.body().string();
                         System.out.println("レスポンスを受信しました: " + body);
                         //user_nameの列データを取得する変数
