@@ -43,7 +43,6 @@
 <!--&lt;!&ndash;                        <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
 <!--&lt;!&ndash;                    </intent-filter>&ndash;&gt;-->
 <!--        </activity>-->
->>>>>>> joudai2
         <activity
             android:name=".MapsActivity"
             android:exported="true">
@@ -59,7 +58,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-<<<<<<< HEAD
 
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -73,7 +71,6 @@
 
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
->>>>>>> joudai2
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -109,7 +106,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-<<<<<<< HEAD
         </activity>
 
         <activity
@@ -120,10 +116,10 @@
                 android:value="" />
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
-=======
+
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
->>>>>>> joudai2
+
 
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
