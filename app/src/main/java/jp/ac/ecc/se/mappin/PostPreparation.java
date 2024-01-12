@@ -62,8 +62,9 @@ public class PostPreparation extends AppCompatActivity {
         ImageView post_Image = findViewById(R.id.post_image);
         Button camera_Button = findViewById(R.id.camera_Button);
 
-        //インテントから位置データ獲得
+        //インテント(home)から位置データ獲得
         Intent intent = getIntent();
+        //今はsampleで値が入っている状態
         double latitude = intent.getDoubleExtra("latitude", 34.70701210088185);
         double longitude = intent.getDoubleExtra("longitude", 135.5023673548298);
 
