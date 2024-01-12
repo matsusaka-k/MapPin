@@ -8,38 +8,41 @@
 
     <Button
         android:id="@+id/post_Button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="投稿"
+        android:backgroundTint="@color/material_dynamic_primary50"
+        android:text="シェア"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment_text" />
 
     <Button
         android:id="@+id/cansel_Button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/material_dynamic_primary50"
         android:text="キャンセル"
-        app:layout_constraintEnd_toStartOf="@+id/post_Button"
-        app:layout_constraintHorizontal_bias="0.052"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/post_Button" />
 
     <TextView
         android:id="@+id/location_text"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="center"
-        android:textColor="@color/black"
         android:inputType="textPersonName"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/location_image"
         app:layout_constraintTop_toBottomOf="@+id/camera_Button" />
 
@@ -47,46 +50,52 @@
         android:id="@+id/location_image"
         android:layout_width="51dp"
         android:layout_height="51dp"
-        android:layout_marginTop="68dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_image"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:srcCompat="@drawable/ic_baseline_place_24" />
 
     <EditText
         android:id="@+id/comment_text"
-        android:layout_width="418dp"
-        android:layout_height="244dp"
+        android:layout_width="409dp"
+        android:layout_height="168dp"
         android:background="@null"
         android:ems="10"
         android:gravity="start"
         android:hint="コメント"
         android:inputType="textPersonName|textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_text"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintTop_toBottomOf="@+id/location_text" />
 
     <ImageView
         android:id="@+id/post_image"
-        android:layout_width="293dp"
-        android:layout_height="246dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="407dp"
+        android:layout_height="265dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.61"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cansel_Button" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/camera_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
         android:clickable="true"
+        android:gravity="start|center_vertical"
         android:text="カメラ"
-        app:backgroundTint="@color/material_dynamic_neutral_variant80"
-        app:layout_constraintBottom_toTopOf="@+id/location_text"
+        android:textSize="24sp"
+        app:backgroundTint="@color/material_dynamic_primary100"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/post_image" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/post_image"
+        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>
