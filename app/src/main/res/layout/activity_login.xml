@@ -38,5 +38,7 @@
         android:id="@+id/LoginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ログイン"/>
+        android:backgroundTint="#FF5722"
+        android:text="ログイン"
+        android:textColor="@color/white" />
 </LinearLayout>
