@@ -3,8 +3,10 @@ package jp.ac.ecc.se.mappin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ public class Login extends AppCompatActivity {
     EditText userIdEditText;
     EditText passwordEditText;
     Button loginButton;
+    TextView noaccountText;
 
     SharedPreferences preferences;
 
@@ -25,6 +28,7 @@ public class Login extends AppCompatActivity {
         userIdEditText = findViewById(R.id.UserId);
         passwordEditText = findViewById(R.id.Password);
         loginButton = findViewById(R.id.LoginButton);
+        noaccountText = findViewById(R.id.Noaccount_text);
 
         preferences = getSharedPreferences("loginPref", MODE_PRIVATE);
 
@@ -46,6 +50,16 @@ public class Login extends AppCompatActivity {
                 showError("ログインに失敗しました");
             }
         });
+
+        //アカウント持ってない人→新規登録画面遷移
+        noaccountText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent createaccount = new Intent(Login.this, CreateAcount.class);
+                startActivity(createaccount);
+            }
+        });
+
     }
 
     private void startHomeActivity() {
