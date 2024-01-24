@@ -130,6 +130,9 @@ public class PostPreparation extends AppCompatActivity {
                         out.println("レスポンスを受信しました: " + response.body());
                     }
                 });
+
+                Intent homeintent = new Intent(PostPreparation.this,Home.class);
+                startActivity(homeintent);
             }
         });
 
