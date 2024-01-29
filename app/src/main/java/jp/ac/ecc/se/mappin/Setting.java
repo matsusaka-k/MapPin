@@ -89,17 +89,6 @@ public class Setting extends AppCompatActivity {
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // ユーザーデータ（名前およびアイコン）を更新するためのロジックを実装
-                // 更新されたデータには selectedImageBitmap と nameEditText.getText().toString() を使用できます
-//                String updatedUserName = nameEditText.getText().toString();
-//                Bitmap updatedUserIcon = selectedImageBitmap;
-//
-//                // ここでサーバーに更新したユーザーデータを送信する処理を追加
-//                sendUserDataToServer(updatedUserName, updatedUserIcon);
-//
-//                Intent homeintent = new Intent(Setting.this,Home.class);
-//                startActivity(homeintent);
-
                 //ユーザが入力した値を取得
                 String newUserName = nameEditText.getText().toString();
 
@@ -109,7 +98,7 @@ public class Setting extends AppCompatActivity {
                 MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
                 // Requestを作成(先ほど設定したデータ形式とパラメータ情報をもとにリクエストデータを作成)
                 Request request = new Request.Builder()
-                        .url("https://click.ecc.ac.jp/ecc/hige_map_pin/DB_select_update.php/?" + "user_id="+user_id+"&user_name="+newUserName)
+                        .url("https://click.ecc.ac.jp/ecc/hige_map_pin/DB_select_setting.php/?" + "user_id="+user_id+"&user_name="+newUserName)
                         .get()
                         .build();
 
@@ -136,28 +125,12 @@ public class Setting extends AppCompatActivity {
                         System.out.println("レスポンスを受信しました: " + body);
                     }
                 });
-
-
+                Intent homeintent = new Intent(Setting.this,Home.class);
+                startActivity(homeintent);
             }
         });
     }
 
-    // サーバーに更新したユーザーデータを送信するメソッド
-//    private void sendUserDataToServer(String updatedUserName, Bitmap updatedUserIcon) {
-//        // ここにサーバーへのデータ送信処理を実装
-//        // OkHttpClientを使用してサーバーにデータを送信するコードを書きます
-//        // サーバーのAPIエンドポイントに対してデータを送信し、更新の成功・失敗を処理します
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject.put("user_name", updatedUserName);
-//            jsonObject.put("icon_img", updatedUserIcon);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -165,6 +138,7 @@ public class Setting extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             if (selectedImageUri != null) {
+//                String imagePath = getImageFilePath(selectedImageUri);
                 try {
                     // 選択した画像を読み込む
                     Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
@@ -189,12 +163,15 @@ public class Setting extends AppCompatActivity {
                             out = null;
                         }
                     }
+//                    uploadImage(imagePath);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
+
+
 
     // Bitmapを円形に切り抜くメソッド
     private Bitmap getRoundedBitmap(Bitmap bitmap) {
