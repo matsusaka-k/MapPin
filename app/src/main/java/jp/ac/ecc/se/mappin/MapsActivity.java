@@ -1,32 +1,28 @@
 package jp.ac.ecc.se.mappin;
 import static android.widget.Toast.LENGTH_SHORT;
-import static java.lang.Double.parseDouble;
-import static java.lang.System.in;
 import static java.lang.System.out;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.os.AsyncTask;
+import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,33 +32,27 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 //public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        GoogleMap.OnPoiClickListener {
@@ -76,16 +66,32 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
     //TextView textView = findViewById(R.id.textView);
     double Mylatitude; //自身のデバイスの緯度
     double Mylongitude; //自身のデバイスの経度
-    String baseURL = "https://click.ecc.ac.jp/ecc/hige_map_pin/DB_ShowMap.php"; //url
+
+    //マップの
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        ImageButton restartButton = findViewById(R.id.hugaButton);
+
         //マップ上のピンをクリア
         //mMap.clear();
 
+
+
+
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Activityをリスタートさせる
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
@@ -111,7 +117,7 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     Mylongitude = location.getLongitude();
                     // ここで取得した緯度(latitude)と経度(longitude)を使用できます
                     // 例えば、Toastで表示する場合
-                    Toast.makeText(MapsActivity.this, "緯度: " + Mylatitude + ", 経度: " + Mylongitude, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MapsActivity.this, "緯度: " + Mylatitude + ", 経度: " + Mylongitude, Toast.LENGTH_SHORT).show();
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     mapFragment.getMapAsync(MapsActivity.this);
                 }
@@ -133,39 +139,61 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng tokyo = new LatLng(35.6804, 139.7690);
-
         //現在の位置情報の取得
         if (currentLocation != null) {
             LatLng sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(sydney).title("現在地"));
+            mMap.addMarker(new MarkerOptions().position(sydney).title("現在地")); //icon()　で　brawableに入っている画像を使用する 例:icon(BitmapDescriptorFactory.fromResource(R.drawable.station_1))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
+
                     // ピンがクリックされたときの処理
                     getLocationInfo(marker.getPosition());
                     Intent UserPostIntent = new Intent(getApplicationContext(),UserPost.class);
                     Intent MyAccountintent = new Intent(getApplicationContext(),Account.class);
-                    //もし押されたマーカーが自身の現在地の場合、Account画面に遷移
+
+                    // どのピンが押されたか現在地で見分ける(intentでその情報をUserPostに送る)
+
+                    // もし押されたマーカーが自身の現在地の場合、Account画面に遷移
                     if((sydney.latitude == marker.getPosition().latitude)&&(sydney.longitude == marker.getPosition().longitude)){
-                        out.println("yyyyyyyyyyyyyyyyyyyyyyyyy");
+                        MyAccountintent.putExtra("latitude",sydney.latitude);
+                        MyAccountintent.putExtra("longitude",sydney.longitude);
                         startActivity(MyAccountintent);
                     }else {
+                        UserPostIntent.putExtra("latitude",marker.getPosition().latitude);
+                        UserPostIntent.putExtra("longitude",marker.getPosition().longitude);
                         startActivity(UserPostIntent);
                         return false;
                     }
                     return false;
                 }
             });
-            //ためしに
-            //mMap.setOnPoiClickListener(this);
+
+            //自身の現在地から半径2.5kmの範囲を円の描画(他ユーザの投稿が取得できる範囲)
+            googleMap.addCircle(
+                    new CircleOptions()
+                            .center(new LatLng(sydney.latitude,sydney.longitude))
+                            .radius(2500.2500)
+                            .fillColor(Color.argb(20,188,9,0))
+                            .strokeColor(Color.argb(50,9,8,8))
+                            .zIndex(1.0f)
+            );
+
+            //指定した倍率以下にズームアウトしないよう制限する
+            mMap.setMinZoomPreference(15.0f);
+
+            //指定した倍率以上にズームインしないよう制限する
+            mMap.setMaxZoomPreference(19.0f);
+
 
             //ここでカメラの位置を調整できる
-            CameraUpdate locationUpdate = CameraUpdateFactory.newLatLngZoom(sydney, 15.0f);
+            CameraUpdate locationUpdate = CameraUpdateFactory.newLatLngZoom(sydney, 18.0f);
             mMap.moveCamera(locationUpdate);
 //        }
 //    }
+
 
             //表示するピンを絞る
             //デバイスの現在地から半径2.5kmの範囲にあるピンのみを表示させる
@@ -173,6 +201,7 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
             double bottomLatitude = Mylatitude - 0.02247491451263;
             double rightLongitude = Mylongitude + 0.0274402060767;
             double leftLongitude = Mylongitude - 0.0274402060767;
+
 
 
             // HTTP接続用インスタンス生成
@@ -219,14 +248,10 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     List<Double> longitudeList = new ArrayList<>();
 
                     try {
-                        out.println("aaaaa");
                         String str = "{\"name\":\"John\",\"age\":\"30\"}";
                         JSONObject json = new JSONObject(body);
-                        out.println("bbbbb");
                         String list = json.getString("list");
-                        out.println("ccccc");
                         JSONArray jsonArray = new JSONArray(list);
-                        out.println("ddddd");
                         int list_length =jsonArray.length();
                         out.println(jsonArray.length());
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -252,7 +277,7 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                                     Glide.with(getApplicationContext())
                                             .asBitmap()
                                             .load("https://click.ecc.ac.jp/ecc/hige_map_pin/image/user_post/"+postImgList.get(count))
-                                            .override(100,200) //画像のリサイズ
+                                            .override(90,130) //画像のリサイズ
                                             .into(new CustomTarget<Bitmap>() {
                                         @Override
                                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -276,6 +301,11 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
+
+
+    //各リアクションが多い順に
+
+
     // ピンがクリックされたときに位置情報を取得して表示
     private void getLocationInfo(LatLng location) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -286,7 +316,7 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 String locationInfo = address.getAddressLine(0) +
                         "\nLatitude: " + address.getLatitude() +
                         "\nLongitude: " + address.getLongitude();
-                Toast.makeText(this, locationInfo, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, locationInfo, Toast.LENGTH_LONG).show();
             }
         } catch (IOException e) {
             e.printStackTrace();

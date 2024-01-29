@@ -6,80 +6,131 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/setPostImage"
         android:layout_width="248dp"
         android:layout_height="372dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginTop="48dp"
         android:scaleType="centerCrop"
         android:src="@drawable/usagi"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/goodButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:scaleType="centerCrop"
         android:src="@drawable/icon_106310_256"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/smilebutton"
+        app:layout_constraintStart_toEndOf="@+id/heartButtton"
+        app:layout_constraintTop_toBottomOf="@+id/postText" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/heartButtton"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:scaleType="centerCrop"
         android:src="@drawable/icon_112960_256"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton1"
+        app:layout_constraintEnd_toStartOf="@+id/goodButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
+        app:layout_constraintTop_toBottomOf="@+id/postText"
         app:layout_constraintVertical_bias="0.5"
         />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/smilebutton"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:scaleType="centerCrop"
         android:src="@drawable/icon_130850_256"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton1"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
-        app:layout_constraintVertical_bias="0.5"
-        />
+        app:layout_constraintStart_toEndOf="@+id/goodButton"
+        app:layout_constraintTop_toBottomOf="@+id/postText"
+        app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:id="@+id/postText"
+        android:layout_width="304dp"
+        android:layout_height="102dp"
+        android:background="#0000"
+        android:editable="false"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton1"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/goodButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/setPostImage"
         app:layout_constraintVertical_bias="0.2" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:id="@+id/backButton"
+        android:layout_width="54dp"
+        android:layout_height="55dp"
         android:scaleType="centerCrop"
         android:src="@drawable/icon_126040_256"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/postText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/setPostImage"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/heartCountView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/heartButtton"
+        app:layout_constraintStart_toStartOf="@+id/heartButtton" />
+
+    <TextView
+        android:id="@+id/goodCountView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/goodButton"
+        app:layout_constraintStart_toStartOf="@+id/goodButton" />
+
+    <TextView
+        android:id="@+id/smileCountView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/smilebutton"
+        app:layout_constraintStart_toStartOf="@+id/smilebutton" />
+
+    <ImageView
+        android:id="@+id/userIconView"
+        android:layout_width="75dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/setPostImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/postTimeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="ここに投稿時刻が入ります"
+        app:layout_constraintBottom_toTopOf="@+id/postText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setPostImage" />
+
+    <TextView
+        android:id="@+id/userNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ここにユーザ名が入ります"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/setPostImage"
+        app:layout_constraintStart_toEndOf="@+id/userIconView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
