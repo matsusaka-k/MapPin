@@ -1,18 +1,22 @@
 package jp.ac.ecc.se.mappin;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+public class Home extends ViewModel {
 
-public class Home extends AppCompatActivity {
+    private final MutableLiveData<String> mText;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    public Home() {
+        mText = new MutableLiveData<>();
+        mText.setValue("ホーム画面");
+    }
 
+    public LiveData<String> getText() {
+        return mText;
+    }
+}
       /*　コーディングする上での注意事項
             ・エミュレータは Pixel6 API33 を使用すること
             ・命名規則
@@ -35,5 +39,3 @@ public class Home extends AppCompatActivity {
 //                startActivity(PostPreparation);
 //            }
 //        });
-    }
-}
