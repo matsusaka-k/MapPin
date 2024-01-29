@@ -23,7 +23,6 @@
         android:theme="@style/Theme.MapPin"
         tools:targetApi="34">
 
-
         <activity
             android:name=".SampleConnect"
             android:exported="true">
@@ -37,29 +36,29 @@
 <!--        <activity-->
 <!--            android:name=".SampleConnect"-->
 <!--            android:exported="true">-->
-<!--&lt;!&ndash;                    <intent-filter>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+<!--                    <intent-filter>-->
+<!--                        <action android:name="android.intent.action.MAIN" />-->
 
-<!--&lt;!&ndash;                        <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-<!--&lt;!&ndash;                    </intent-filter>&ndash;&gt;-->
+<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                    </intent-filter>-->
 <!--        </activity>-->
->>>>>>> joudai2
+
         <activity
             android:name=".MapsActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
         </activity>
+
         <activity
             android:name=".CreateAcount"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-<<<<<<< HEAD
 
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -67,17 +66,12 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
 
-=======
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
->>>>>>> joudai2
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKdiKpd3S6rpLklsFy0n6_7pD6C7ZsInw" />
+
         <activity
             android:name=".Account"
             android:exported="true">
@@ -90,6 +84,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
         <activity
             android:name=".PostDetail"
             android:exported="true">
@@ -103,13 +98,18 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
         <activity
             android:name=".PostPreparation"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-<<<<<<< HEAD
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <activity
@@ -118,15 +118,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-=======
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
->>>>>>> joudai2
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
 
         <activity
@@ -138,24 +134,37 @@
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-
         </activity>
+
         <activity
             android:name=".Start"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
-    </application>
+
+    <activity
+        android:name=".Bottom"
+        android:exported="true">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
+</application>
 
 </manifest>
