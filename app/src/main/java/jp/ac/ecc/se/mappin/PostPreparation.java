@@ -128,7 +128,7 @@ public class PostPreparation extends AppCompatActivity {
                             public void run() {
                                 out.println("リクエスト失敗");
                                 Toast.makeText(getApplicationContext(), "リクエストが失敗しました: " + e.getMessage(), LENGTH_SHORT).show();
-                                Log.d("DEBUG","err = "+ e.getMessage());
+                                Log.d("DEBUG", "err = " + e.getMessage());
                             }
                         });
                     }
@@ -146,27 +146,27 @@ public class PostPreparation extends AppCompatActivity {
 //                        imageUploadMethod(fileName);
 
                         //撮影した写真をbitmap型に変える
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
 
                         //Bitmap画像を0.5倍の大きさに縮小
                         Matrix matrix = new Matrix();
-                        matrix.postScale(0.5f,0.5f);
-                        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+                        matrix.postScale(0.5f, 0.5f);
+                        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
                         //Bitmap画像をbase64に変換
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                        scaledBitmap.compress(Bitmap.CompressFormat.JPEG,40,byteArrayOutputStream);
+                        scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
                         byte[] bytes = byteArrayOutputStream.toByteArray();
                         String bites64Encoded = Base64.getEncoder().encodeToString(bytes);
 
-                        out.println("画像データをbase64に変換したものです="+bites64Encoded);
+                        out.println("画像データをbase64に変換したものです=" + bites64Encoded);
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 byte[] hoge = Base64.getDecoder().decode(bites64Encoded);
-                                out.println("hogeの中身="+hoge);
-                                Bitmap huga = BitmapFactory.decodeByteArray(hoge,0,hoge.length);
+                                out.println("hogeの中身=" + hoge);
+                                Bitmap huga = BitmapFactory.decodeByteArray(hoge, 0, hoge.length);
                                 post_Image.setImageBitmap(huga);
                             }
                         });
@@ -180,7 +180,7 @@ public class PostPreparation extends AppCompatActivity {
                 });
 
 
-               // Intent homeintent = new Intent(PostPreparation.this, Home.class);
+                // Intent homeintent = new Intent(PostPreparation.this, Home.class);
                 //startActivity(homeintent);
             }
         });

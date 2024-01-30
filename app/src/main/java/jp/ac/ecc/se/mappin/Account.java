@@ -1,5 +1,6 @@
 package jp.ac.ecc.se.mappin;
 
+
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -7,12 +8,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 public class Account extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
 
         //画面部品の宣言
         ImageView settingButton = findViewById(R.id.setting_image);
