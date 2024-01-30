@@ -18,7 +18,6 @@ public class Start extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // SharedPreferencesからログイン情報を取得
         loginPreferences = getSharedPreferences("loginPref", MODE_PRIVATE);
         boolean isLoggedIn = loginPreferences.getBoolean("isLoggedIn", false);
