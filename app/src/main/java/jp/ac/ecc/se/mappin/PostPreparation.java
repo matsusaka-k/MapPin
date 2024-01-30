@@ -6,11 +6,15 @@ import static java.lang.System.out;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,8 +26,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +39,7 @@ import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -89,10 +96,14 @@ public class PostPreparation extends AppCompatActivity {
 
         String userID = "akaoni45";
 
+
         // クリックリスナーの設定
         post_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //以下、DBに情報を送る処理
+
                 // 投稿ボタンのクリックを処理
                 String comment = comment_Text.getText().toString();
                 String imageData = imageUri.toString();
@@ -100,15 +111,12 @@ public class PostPreparation extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
                 // JSON形式でパラメータを送るようデータ形式を設定
                 MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-                //string型でしかパラメータは送れない
-                //String  mylatitude = String.valueOf(latitude);
-                //String mylongitude = String.valueOf(longitude);
-//                out.println("https://click.ecc.ac.jp/ecc/hige_map_pin/DB_select_postinfo.php/?"+"user_id="+userID + "&" + "post_text=" + comment + "&" + "latitude=" + latitude + "&" + "longitude=" + longitude + "&" + "post_img=" + imageData);
                 // Requestを作成(先ほど設定したデータ形式とパラメータ情報をもとにリクエストデータを作成)
                 Request request = new Request.Builder()
-                        .url("https://click.ecc.ac.jp/ecc/hige_map_pin/DB_select_postinfo.php/?"+"user_id="+userID + "&" + "post_text=" + comment + "&" + "latitude=" + latitude + "&" + "longitude=" + longitude + "&" + "post_img=" + imageData)
+                        .url("https://click.ecc.ac.jp/ecc/hige_map_pin/DB_select_postinfo.php/?" + "user_id=" + userID + "&" + "post_text=" + comment + "&" + "latitude=" + latitude + "&" + "longitude=" + longitude + "&" + "post_img=" + imageData)
                         .get()
                         .build();
+
                 // リクエスト送信（非同期処理）
                 client.newCall(request).enqueue(new Callback() {
                     ///////////////////////////////// リクエストが失敗した場合の処理を実装 /////////////////////////////////////////////
@@ -120,6 +128,7 @@ public class PostPreparation extends AppCompatActivity {
                             public void run() {
                                 out.println("リクエスト失敗");
                                 Toast.makeText(getApplicationContext(), "リクエストが失敗しました: " + e.getMessage(), LENGTH_SHORT).show();
+                                Log.d("DEBUG","err = "+ e.getMessage());
                             }
                         });
                     }
@@ -128,11 +137,51 @@ public class PostPreparation extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         out.println("レスポンスを受信しました: " + response.body());
+
+//                        //Uri型のimageDataをFile型に変換
+//                        Cursor cursor = getContentResolver().query(imageUri,null,null,null,null);
+//                        cursor.moveToFirst();
+//                        @SuppressLint("Range") String fileNameString = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA));
+//                        File fileName = new File(fileNameString);
+//                        imageUploadMethod(fileName);
+
+                        //撮影した写真をbitmap型に変える
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+
+                        //Bitmap画像を0.5倍の大きさに縮小
+                        Matrix matrix = new Matrix();
+                        matrix.postScale(0.5f,0.5f);
+                        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+
+                        //Bitmap画像をbase64に変換
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        scaledBitmap.compress(Bitmap.CompressFormat.JPEG,40,byteArrayOutputStream);
+                        byte[] bytes = byteArrayOutputStream.toByteArray();
+                        String bites64Encoded = Base64.getEncoder().encodeToString(bytes);
+
+                        out.println("画像データをbase64に変換したものです="+bites64Encoded);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                byte[] hoge = Base64.getDecoder().decode(bites64Encoded);
+                                out.println("hogeの中身="+hoge);
+                                Bitmap huga = BitmapFactory.decodeByteArray(hoge,0,hoge.length);
+                                post_Image.setImageBitmap(huga);
+                            }
+                        });
+
+                        imageUploadMethod(bites64Encoded);
+
+                        //撮った画像をjpg形式で保存
+                        //ByteArrayOutputStream jpg = new ByteArrayOutputStream();
+
                     }
                 });
 
-                Intent homeintent = new Intent(PostPreparation.this,Home.class);
-                startActivity(homeintent);
+
+               // Intent homeintent = new Intent(PostPreparation.this, Home.class);
+                //startActivity(homeintent);
             }
         });
 
@@ -172,5 +221,37 @@ public class PostPreparation extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static void imageUploadMethod(String imageData) throws IOException {
+
+        // HTTP接続用インスタンス生成
+        OkHttpClient client = new OkHttpClient();
+        // JSON形式でパラメータを送るようデータ形式を設定
+        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+        // Bodyのデータ(APIに渡したいパラメータを設定) PostSearchBoxに入力されたpost_idを渡す
+        String requestBody = "{\"imageData\":\"" + imageData + "\"}";
+        // Requestを作成(先ほど設定したデータ形式とパラメータ情報をもとにリクエストデータを作成)
+        Request request = new Request.Builder()
+                .url("https://click.ecc.ac.jp/ecc/hige_map_pin/image/ImageFileUpload.php")
+                .post(RequestBody.create(requestBody, mediaType))
+                .build();
+
+        // リクエスト送信（非同期処理）
+        client.newCall(request).enqueue(new Callback() {
+
+            ///////////////////// リクエストが失敗した場合の処理を実装 /////////////////////////////////
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                out.println("リクエスト失敗");
+            }
+
+            ///////////////////// リクエストが成功した場合の処理を実装//////////////////////////////////
+            @Override
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                out.println("リクエスト成功");
+            }
+        });
+
     }
 }
