@@ -37,6 +37,7 @@ public class CreateAcount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_acount);
 
+<<<<<<< Updated upstream
         EditText ID_text = findViewById(R.id.ID_text);
         EditText Name_text = findViewById(R.id.Name_text);
         EditText Address_text = findViewById(R.id.Address_text);
@@ -46,6 +47,11 @@ public class CreateAcount extends AppCompatActivity {
         // アクションバーの背景色を設定
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.blue)));
 
+=======
+//        Object objects;
+//        //アクションバーの背景色を設定
+//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.blue)));
+>>>>>>> Stashed changes
         ImageView icon_image = findViewById(R.id.Icon_image); // アイコン画像を表示するImageView
         FloatingActionButton add_icon = findViewById(R.id.Add_icon); // 画像を選択するボタン
 

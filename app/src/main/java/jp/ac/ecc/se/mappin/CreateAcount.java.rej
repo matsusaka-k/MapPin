@@ -1,0 +1,9 @@
+diff a/app/src/main/java/jp/ac/ecc/se/mappin/CreateAcount.java b/app/src/main/java/jp/ac/ecc/se/mappin/CreateAcount.java	(rejected hunks)
+@@ -55,6 +55,7 @@
+  //        Object objects;
+  //        //アクションバーの背景色を設定
+  //        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.blue)));
+++>>>>>>> Stashed changes
+          ImageView icon_image = findViewById(R.id.Icon_image); // アイコン画像を表示するImageView
+ -        FloatingActionButton Add_icon = findViewById(R.id.Add_icon); // 画像を選択するボタン
+ +        FloatingActionButton add_icon = findViewById(R.id.Add_icon); // 画像を選択するボタン
