@@ -1,26 +1,25 @@
 package jp.ac.ecc.se.mappin;
+
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.out;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -33,7 +32,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,6 +42,7 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,33 +54,29 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-//public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
-//        GoogleMap.OnPoiClickListener {
-public  class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+public class Home extends FragmentActivity implements OnMapReadyCallback {
 
     private final int FINE_PERMISSION_CODE = 1;
     private GoogleMap mMap;
     private Marker marker;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
-    ImageButton PostButton;
     //TextView textView = findViewById(R.id.textView);
     double Mylatitude; //自身のデバイスの緯度
     double Mylongitude; //自身のデバイスの経度
-
-    //マップの
+    String baseURL = "https://click.ecc.ac.jp/ecc/hige_map_pin/DB_ShowMap.php"; //url
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        ImageButton AccountButton = findViewById(R.id.Accountbutton);
-        PostButton = findViewById(R.id.PostButton);
-        ImageButton HomeButton = findViewById(R.id.Homebutton);
-        ImageButton SettingButton = findViewById(R.id.Settingbutton);
+        setContentView(R.layout.activity_home);
 
-        //マップ上のピンをクリア
-        //mMap.clear();
+        Button AccountButton = findViewById(R.id.Accountbutton);
+        Button PostButton = findViewById(R.id.Postbutton2);
+        Button HomeButton = findViewById(R.id.Homebutton);
+        Button SettingButton = findViewById(R.id.Settingbutton);
+        Button PostButton2 = findViewById(R.id.PostButton);
 
         AccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,36 +89,22 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
+        PostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //投稿画面に遷移
+                Intent intent = new Intent(getApplicationContext(), PostPreparation.class);
+                finish();
+                startActivity(intent);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            }
+        });
 
-
-
-//                // 位置情報のパーミッションを確認
-//                if (ActivityCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                    // パーミッションが許可されていない場合、リクエストする
-//                    ActivityCompat.requestPermissions(MapsActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FINE_PERMISSION_CODE);
-//                    return;
-//                }
-
-                // 位置情報を取得
-//                fusedLocationProviderClient.getLastLocation()
-//                        .addOnSuccessListener(MapsActivity.this, new OnSuccessListener<Location>() {
-//                            @Override
-//                            public void onSuccess(Location location) {
-//                                if (location != null) {
-//                                    // 位置情報を他の画面に送信
-//                                    sendLocationToOtherActivity(location.getLatitude(), location.getLongitude());
-//                                }
-//                            }
-//                        });
-//            }
-//        });
         HomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //ホーム画面に遷移
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Home.class);
                 finish();
                 startActivity(intent);
 
@@ -142,12 +123,27 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
+
+        PostButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(),PostPreparation.class);
+                startActivity(intent);
+            }
+        });
+
+        //マップ上のピンをクリア
+        //mMap.clear();
+
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
     }
+
     //位置情報
     private void getLastLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -163,10 +159,8 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     Mylatitude = location.getLatitude();
                     Mylongitude = location.getLongitude();
                     // ここで取得した緯度(latitude)と経度(longitude)を使用できます
-                    // 例えば、Toastで表示する場合
-                    //Toast.makeText(MapsActivity.this, "緯度: " + Mylatitude + ", 経度: " + Mylongitude, Toast.LENGTH_SHORT).show();
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-                    mapFragment.getMapAsync(MapsActivity.this);
+                    mapFragment.getMapAsync(Home.this);
                 }
             }
         });
@@ -186,71 +180,39 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
+        LatLng tokyo = new LatLng(35.6804, 139.7690);
+
         //現在の位置情報の取得
         if (currentLocation != null) {
             LatLng sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(sydney).title("現在地")); //icon()　で　brawableに入っている画像を使用する 例:icon(BitmapDescriptorFactory.fromResource(R.drawable.station_1))
+            mMap.addMarker(new MarkerOptions().position(sydney).title("現在地"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        PostButton.setOnClickListener(new View.OnClickListener() {
-                  @Override
-                  public void onClick(View v) {
-                      Intent Postintent = new Intent(MapsActivity.this, PostPreparation.class);
-                      Postintent.putExtra("latitude", sydney.latitude);
-                      Postintent.putExtra("longitude", sydney.longitude);
-                      startActivity(Postintent);
-                      }
-        });
-
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
-
                     // ピンがクリックされたときの処理
                     getLocationInfo(marker.getPosition());
                     Intent UserPostIntent = new Intent(getApplicationContext(),UserPost.class);
                     Intent MyAccountintent = new Intent(getApplicationContext(),Account.class);
-
-                    // どのピンが押されたか現在地で見分ける(intentでその情報をUserPostに送る)
-
-                    // もし押されたマーカーが自身の現在地の場合、Account画面に遷移
+                    //もし押されたマーカーが自身の現在地の場合、Account画面に遷移
                     if((sydney.latitude == marker.getPosition().latitude)&&(sydney.longitude == marker.getPosition().longitude)){
-                        MyAccountintent.putExtra("latitude",sydney.latitude);
-                        MyAccountintent.putExtra("longitude",sydney.longitude);
+                        out.println("yyyyyyyyyyyyyyyyyyyyyyyyy");
                         startActivity(MyAccountintent);
                     }else {
-                        UserPostIntent.putExtra("latitude",marker.getPosition().latitude);
-                        UserPostIntent.putExtra("longitude",marker.getPosition().longitude);
                         startActivity(UserPostIntent);
                         return false;
                     }
                     return false;
                 }
             });
-
-            //自身の現在地から半径2.5kmの範囲を円の描画(他ユーザの投稿が取得できる範囲)
-            googleMap.addCircle(
-                    new CircleOptions()
-                            .center(new LatLng(sydney.latitude,sydney.longitude))
-                            .radius(2500.2500)
-                            .fillColor(Color.argb(20,188,9,0))
-                            .strokeColor(Color.argb(50,9,8,8))
-                            .zIndex(1.0f)
-            );
-
-            //指定した倍率以下にズームアウトしないよう制限する
-            mMap.setMinZoomPreference(15.0f);
-
-            //指定した倍率以上にズームインしないよう制限する
-            mMap.setMaxZoomPreference(19.0f);
-
+            //ためしに
+            //mMap.setOnPoiClickListener(this);
 
             //ここでカメラの位置を調整できる
-            CameraUpdate locationUpdate = CameraUpdateFactory.newLatLngZoom(sydney, 18.0f);
+            CameraUpdate locationUpdate = CameraUpdateFactory.newLatLngZoom(sydney, 15.0f);
             mMap.moveCamera(locationUpdate);
 //        }
 //    }
-
 
             //表示するピンを絞る
             //デバイスの現在地から半径2.5kmの範囲にあるピンのみを表示させる
@@ -258,7 +220,6 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
             double bottomLatitude = Mylatitude - 0.02247491451263;
             double rightLongitude = Mylongitude + 0.0274402060767;
             double leftLongitude = Mylongitude - 0.0274402060767;
-
 
 
             // HTTP接続用インスタンス生成
@@ -305,10 +266,14 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     List<Double> longitudeList = new ArrayList<>();
 
                     try {
+                        out.println("aaaaa");
                         String str = "{\"name\":\"John\",\"age\":\"30\"}";
                         JSONObject json = new JSONObject(body);
+                        out.println("bbbbb");
                         String list = json.getString("list");
+                        out.println("ccccc");
                         JSONArray jsonArray = new JSONArray(list);
+                        out.println("ddddd");
                         int list_length =jsonArray.length();
                         out.println(jsonArray.length());
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -334,20 +299,20 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                                     Glide.with(getApplicationContext())
                                             .asBitmap()
                                             .load("https://click.ecc.ac.jp/ecc/hige_map_pin/image/user_post/"+postImgList.get(count))
-                                            .override(90,130) //画像のリサイズ
+                                            .override(100,200) //画像のリサイズ
                                             .into(new CustomTarget<Bitmap>() {
-                                        @Override
-                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                            // 取得したBitmapを使用してマーカーを設定
-                                            mMap.addMarker(new MarkerOptions()
-                                                    .position(new LatLng(latitudeList.get(finalCount),(longitudeList.get(finalCount))))
-                                                    .icon(BitmapDescriptorFactory.fromBitmap(resource)));
-                                        }
-                                        @Override
-                                        public void onLoadCleared(@Nullable Drawable placeholder) {
-                                            // Optional: ロードがクリアされたときの処理を追加できます
-                                        }
-                                    });
+                                                @Override
+                                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                                    // 取得したBitmapを使用してマーカーを設定
+                                                    mMap.addMarker(new MarkerOptions()
+                                                            .position(new LatLng(latitudeList.get(finalCount),(longitudeList.get(finalCount))))
+                                                            .icon(BitmapDescriptorFactory.fromBitmap(resource)));
+                                                }
+                                                @Override
+                                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                                    // Optional: ロードがクリアされたときの処理を追加できます
+                                                }
+                                            });
                                 }
                             }
                         }
@@ -356,11 +321,6 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
             });
         }
     }
-
-
-
-
-    //各リアクションが多い順に
 
 
     // ピンがクリックされたときに位置情報を取得して表示
@@ -373,10 +333,71 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 String locationInfo = address.getAddressLine(0) +
                         "\nLatitude: " + address.getLatitude() +
                         "\nLongitude: " + address.getLongitude();
-                //Toast.makeText(this, locationInfo, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, locationInfo, Toast.LENGTH_LONG).show();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    private void addMarker(LatLng latLng) {
+        if (marker != null) {
+            marker.remove();
+        }
+        Toast.makeText(Home.this, "緯度: " + Mylatitude + ", 経度: " + Mylongitude, Toast.LENGTH_SHORT).show();
+        marker = mMap.addMarker(new MarkerOptions().position(latLng).title("現在地"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
+
+
+    //場所の情報の取得
+//    @Override
+    public void onPoiClick(PointOfInterest poi) {
+        Toast.makeText(this, "場所：" +
+                        poi.name,
+//                        + "\nID:" + poi.placeId +
+//                        "\nLatitude:" + poi.latLng.latitude +
+//                        " Longitude:" + poi.latLng.longitude,
+                LENGTH_SHORT).show();
+    }
+
+
+
+
+
+//public class Home extends ViewModel {
+//
+//    private final MutableLiveData<String> mText;
+//
+//    public Home() {
+//        mText = new MutableLiveData<>();
+//        mText.setValue("ホーム画面");
+//    }
+//
+//    public LiveData<String> getText() {
+//        return mText;
+//    }
+//}
+//>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
+      /*　コーディングする上での注意事項
+            ・エミュレータは Pixel6 API33 を使用すること
+            ・命名規則
+                変数宣言時は、最初の単語は小文字　続く単語の先頭は大文字にすること _(アンダーバー)を使って表記しても可
+                (例)inuKawaii または inu_kawaii
+                定数の宣言は、大文字とアンダースコア(_)のみを用いる
+                (例)ACTION_ PERMISSION_
+            ・コメントを必ずつけるように
+                変数宣言時やメソッドを書いたときはその前後に必ずコメントをつけるように
+            ・ネットで拾ったソースを使ってもいいが、内容を理解してからペーストするように
+            ・設定ファイル(Gradle Script直下のフォルダ)は絶対に触らないこと
+            ・画像はdrawableに収納すること
+            ・ファイル追加時は一言松坂にください
+         */
+//        Button contribution_button = findViewById(R.id.contribution_button);
+
+//        contribution_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(PostPreparation);
+//            }
+//        });
 }

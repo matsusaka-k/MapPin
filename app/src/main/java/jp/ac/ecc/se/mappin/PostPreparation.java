@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -30,7 +32,11 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+<<<<<<< HEAD
 import java.util.Random;
+=======
+import java.util.Map;
+>>>>>>> KARASAWA6
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -55,6 +61,7 @@ public class PostPreparation extends AppCompatActivity {
         }
     }
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_preparation);
@@ -66,15 +73,62 @@ public class PostPreparation extends AppCompatActivity {
         ImageView location_Image = findViewById(R.id.location_image);
         ImageView post_Image = findViewById(R.id.post_image);
         Button camera_Button = findViewById(R.id.camera_Button);
+        Button AccountButton = findViewById(R.id.Accountbutton);
+        Button HomeButton = findViewById(R.id.Homebutton);
+        Button SettingButton = findViewById(R.id.Settingbutton);
 
+        cancel_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Activityをリスタートさせる
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+        AccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //アカウント画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Account.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ホーム画面に遷移
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+
+        SettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //設定画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Setting.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
         //インテント(home)から位置データ獲得
         Intent intent = getIntent();
         //今はsampleで値が入っている状態
-        double latitude = intent.getDoubleExtra("latitude", 34.70701210088185);
-        double longitude = intent.getDoubleExtra("longitude", 135.5023673548298);
+        double latitude = intent.getDoubleExtra("latitude",0.0 );
+        double longitude = intent.getDoubleExtra("longitude",0.0);
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-
+        // 以下は例として位置情報をログに出力するコード
+        Log.d("PostPreparation", "Received latitude: " + latitude + ", longitude: " + longitude);
         //location_textを更新
         if (location_Text != null) {
             String locationInfo = "緯度: " + latitude + "\n経度: " + longitude;
@@ -145,6 +199,7 @@ public class PostPreparation extends AppCompatActivity {
                     }
 
                     ///////////////////////////////////////// リクエストが成功した場合の処理を実装//////////////////////////////////
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         out.println("レスポンスを受信しました: " + response.body());
@@ -185,18 +240,18 @@ public class PostPreparation extends AppCompatActivity {
                 });
 
 
-                // Intent homeintent = new Intent(PostPreparation.this, Home.class);
-                //startActivity(homeintent);
+                 Intent homeintent = new Intent(PostPreparation.this, MapsActivity.class);
+                startActivity(homeintent);
             }
         });
 
-        cancel_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // キャンセルボタンのクリックを処理
-                finish(); // アクティビティを終了
-            }
-        });
+//        cancel_Button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // キャンセルボタンのクリックを処理
+//                finish(); // アクティビティを終了
+//            }
+//        });
 
 
         camera_Button.setOnClickListener(new View.OnClickListener() {

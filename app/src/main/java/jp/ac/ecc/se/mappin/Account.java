@@ -1,10 +1,16 @@
 package jp.ac.ecc.se.mappin;
 
 
+<<<<<<< HEAD
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.out;
 
+=======
+import android.content.Intent;
+>>>>>>> KARASAWA6
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+<<<<<<< HEAD
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,11 +36,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+=======
+>>>>>>> KARASAWA6
 public class Account extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
 
 
         //画面部品の宣言
@@ -49,7 +59,47 @@ public class Account extends AppCompatActivity{
         TextView heart = findViewById(R.id.number_heart);
         TextView smile = findViewById(R.id.number_smile);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        Button AccountButton = findViewById(R.id.Accountbutton);
+        Button HomeButton = findViewById(R.id.Homebutton);
+        Button SettingButton = findViewById(R.id.Settingbutton);
 
+        //マップ上のピンをクリア
+        //mMap.clear();
+
+        AccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //アカウント画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Account.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+
+
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ホーム画面に遷移
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+
+        SettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //設定画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Setting.class);
+                finish();
+                startActivity(intent);
+
+<<<<<<< HEAD
         String userID = "akaoni45";
 
 
@@ -151,5 +201,11 @@ public class Account extends AppCompatActivity{
 
             }
         });
+=======
+            }
+        });
+
+
+>>>>>>> KARASAWA6
     }
 }
