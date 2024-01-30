@@ -48,11 +48,11 @@
             android:name=".MapsActivity"
             android:exported="true">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
 
         </activity>
 
@@ -63,12 +63,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+                            <intent-filter>-->
+                                <action android:name="android.intent.action.MAIN" />-->
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-
+                                <category android:name="android.intent.category.LAUNCHER" />-->
+                            </intent-filter>-->
         </activity>
 
         <meta-data
@@ -109,11 +108,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <intent-filter>&ndash;&gt;-->
+<!--                    <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+<!--                    <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+<!--                </intent-filter>&ndash;&gt;-->
         </activity>
 
         <activity
@@ -131,20 +130,6 @@
 
 
         <activity
-            android:name=".Home"
-            android:exported="true">
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-
-        </activity>
-
-        <activity
             android:name=".Start"
             android:exported="true"
             android:theme="@style/Theme.MapPin"
@@ -152,10 +137,10 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
 
         </activity>
 
@@ -165,11 +150,11 @@
         <meta-data
             android:name="android.app.lib_name"
             android:value="" />
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
     </activity>
 
 </application>

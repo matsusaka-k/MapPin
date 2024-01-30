@@ -125,8 +125,8 @@ public class Setting extends AppCompatActivity {
                         System.out.println("レスポンスを受信しました: " + body);
                     }
                 });
-                Intent homeintent = new Intent(Setting.this,Home.class);
-                startActivity(homeintent);
+//                Intent homeintent = new Intent(Setting.this,Home.class);
+//                startActivity(homeintent);
             }
         });
     }

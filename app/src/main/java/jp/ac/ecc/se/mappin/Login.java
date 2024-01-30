@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
             // 入力されたユーザーIDとパスワードと、保存されている情報を比較
             if (enteredUserId.equals(storedUserId) && enteredPassword.equals(storedPassword)) {
                 // ログイン成功時の処理
-                startHomeActivity();
+                //startHomeActivity();
             } else {
                 // ログイン失敗時の処理
                 showError("ログインに失敗しました");
@@ -62,11 +62,11 @@ public class Login extends AppCompatActivity {
 
     }
 
-    private void startHomeActivity() {
-        Intent intent = new Intent(Login.this, Home.class);
-        finish(); // ログイン画面を終了
-        startActivity(intent);
-    }
+//    private void startHomeActivity() {
+//        Intent intent = new Intent(Login.this, Home.class);
+//        finish(); // ログイン画面を終了
+//        startActivity(intent);
+//    }
 
     private void showError(String message) {
         // エラーメッセージを表示する処理を実装

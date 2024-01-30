@@ -51,8 +51,8 @@ public class Start extends AppCompatActivity {
 
     // Home画面へ遷移
     private void startHomeActivity() {
-        Intent intent = new Intent(Start.this, Home.class);
-        finish();
-        startActivity(intent);
+//        Intent intent = new Intent(Start.this, Home.class);
+//        finish();
+//        startActivity(intent);
     }
 }
