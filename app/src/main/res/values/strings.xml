@@ -17,4 +17,12 @@
     <string name="smile">笑顔ボタン</string>
     <string name="good">いいねボタン</string>
     <string name="back">戻るボタン</string>
+    <string name="text_home">ホーム</string>
+    <string name="text_account">アカウント</string>
+    <string name="text_notifications">通知</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_logout">ログアウト</string>
+    <string name="menu_help">ヘルプ</string>
+    <string name="nav_header_title">ここにユーザーID</string>
+    <string name="nav_header_subtitle">ここにユーザー名</string>
 </resources>

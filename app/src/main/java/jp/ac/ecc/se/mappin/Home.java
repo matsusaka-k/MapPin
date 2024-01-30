@@ -1,5 +1,6 @@
 package jp.ac.ecc.se.mappin;
 
+<<<<<<< HEAD
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.out;
 
@@ -312,6 +313,25 @@ public class Home extends FragmentActivity implements OnMapReadyCallback {
 
 
 
+=======
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+public class Home extends ViewModel {
+
+    private final MutableLiveData<String> mText;
+
+    public Home() {
+        mText = new MutableLiveData<>();
+        mText.setValue("ホーム画面");
+    }
+
+    public LiveData<String> getText() {
+        return mText;
+    }
+}
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
       /*　コーディングする上での注意事項
             ・エミュレータは Pixel6 API33 を使用すること
             ・命名規則
@@ -334,4 +354,7 @@ public class Home extends FragmentActivity implements OnMapReadyCallback {
 //                startActivity(PostPreparation);
 //            }
 //        });
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54

@@ -1,53 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission."/>
-
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 位置情報の正確な位置の利用許可-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission." />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 位置情報の正確な位置の利用許可 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="MyGoogleMaps"
+        android:label="MapPin"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MapPin"
         tools:targetApi="34">
+        <activity
+            android:name=".Setting"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity
             android:name=".SampleConnect"
             android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity> <!-- <activity -->
+        <!-- android:name=".SampleConnect" -->
+        <!-- android:exported="true"> -->
+        <!-- &lt;!&ndash;                    <intent-filter>&ndash;&gt; -->
+        <!-- &lt;!&ndash;                        <action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
+        <!-- &lt;!&ndash;                        <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
+        <!-- &lt;!&ndash;                    </intent-filter>&ndash;&gt; -->
+        <!-- </activity> -->
+        <activity
+            android:name=".MapsActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
+<!--        <activity-->
+<!--            android:name=".SampleConnect"-->
+<!--            android:exported="true">-->
 <!--                    <intent-filter>-->
 <!--                        <action android:name="android.intent.action.MAIN" />-->
 
 <!--                        <category android:name="android.intent.category.LAUNCHER" />-->
 <!--                    </intent-filter>-->
-        </activity>
-
-<!--        <activity-->
-<!--            android:name=".SampleConnect"-->
-<!--            android:exported="true">-->
-<!--&lt;!&ndash;                    <intent-filter>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-
-<!--&lt;!&ndash;                        <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-<!--&lt;!&ndash;                    </intent-filter>&ndash;&gt;-->
 <!--        </activity>-->
+
         <activity
             android:name=".MapsActivity"
             android:exported="true">
+<<<<<<< HEAD
 
+=======
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
         </activity>
+
         <activity
             android:name=".CreateAcount"
             android:exported="true">
@@ -55,22 +100,33 @@
                 android:name="android.app.lib_name"
                 android:value="" />
 
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
 
-=======
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKdiKpd3S6rpLklsFy0n6_7pD6C7ZsInw" />
+
         <activity
             android:name=".Account"
             android:exported="true">
@@ -80,9 +136,11 @@
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
+
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
         <activity
             android:name=".PostDetail"
             android:exported="true">
@@ -96,14 +154,28 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
         <activity
             android:name=".PostPreparation"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".UserPost"
             android:exported="true">
@@ -116,11 +188,29 @@
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
 <!--             <category android:name="android.intent.category.LAUNCHER" />-->
 <!--             </intent-filter>-->
         </activity>
 
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
+        </activity>
         <activity
             android:name=".Home"
             android:exported="true">
@@ -131,11 +221,17 @@
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
 
+<<<<<<< HEAD
 
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
 
+=======
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
         </activity>
+
         <activity
             android:name=".Start"
             android:exported="true"
@@ -146,11 +242,45 @@
                 android:value="" />
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
+<<<<<<< HEAD
+=======
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 <!--             <category android:name="android.intent.category.LAUNCHER" />-->
 <!--             </intent-filter>-->
+
+<<<<<<< HEAD
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
+=======
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
         </activity>
-    </application>
+
+    <activity
+        android:name=".Bottom"
+        android:exported="true">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
+</application>
 
 </manifest>

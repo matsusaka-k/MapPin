@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="jp.ac.ecc.se.mappin.AccountFragment"
+        android:label="@string/text_account"
+        tools:layout="@layout/activity_account" />
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="jp.ac.ecc.se.mappin.HomeFragment"
+        android:label="@string/text_home"
+        tools:layout="@layout/activity_home" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="jp.ac.ecc.se.mappin.NotificationsFragment"
+        android:label="@string/text_notifications"
+        tools:layout="@layout/activity_notifications" />
+
+</navigation>

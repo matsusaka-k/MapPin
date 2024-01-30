@@ -23,6 +23,8 @@ import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class CreateAcount extends AppCompatActivity {
@@ -160,6 +162,22 @@ public class CreateAcount extends AppCompatActivity {
 
                     // ImageViewに円形画像を設定
                     imageView.setImageBitmap(circularBitmap);
+
+                    //drawableにbitmap形式の画像を保存
+                    FileOutputStream out = null;
+                    try {
+                        // openFileOutputはContextのメソッドなのでActivity内ならばthisでOK
+                        out = this.openFileOutput("image", this.MODE_PRIVATE);
+                        circularBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    } catch (FileNotFoundException e) {
+                        // エラー処理
+                    } finally {
+                        if (out != null) {
+                            out.close();
+                            out = null;
+                        }
+                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -220,6 +220,48 @@ public class PostPreparation extends AppCompatActivity {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         startActivityForResult(intent, CAMERA_RESULT);
                     }
+
+                });
+
+//                Intent homeintent = new Intent(PostPreparation.this,Home.class);
+//                startActivity(homeintent);
+            }
+        });
+
+        cancel_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // キャンセルボタンのクリックを処理
+                finish(); // アクティビティを終了
+            }
+        });
+
+
+        camera_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // != PackageManager.PERMISSION_GRANTEDなので、許可されていないという条件分岐
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    // 許可されていない場合、リクエストを行う
+                    ActivityCompat.requestPermissions(PostPreparation.this, new String[]{android.Manifest.permission.CAMERA}, 100);
+                } else {
+                    // 許可されていれば、カメラ起動
+                    startActivity(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
+                    // カメラを起動して写真を撮影
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    //ファイル名
+                    String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                    String fileName = "Training_" + timestamp + ".jpg";
+                    //パラメータ設定
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.TITLE, fileName);
+                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                    //保存場所
+                    imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                    // カメラのIntentにパラメータセット
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(intent, CAMERA_RESULT);
+>>>>>>> 2c309d8683be9cffad012434c87efa048da6ad54
                 }
             });
         }
