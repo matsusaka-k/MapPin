@@ -52,10 +52,48 @@ public class Setting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+
         iconImage = findViewById(R.id.icon_image2);
         nameEditText = findViewById(R.id.name_text2);
         Button changeButton = findViewById(R.id.button);
         FloatingActionButton add_icon = findViewById(R.id.add_icon);
+        Button AccountButton = findViewById(R.id.Accountbutton);
+        Button HomeButton = findViewById(R.id.Homebutton);
+        Button SettingButton = findViewById(R.id.Settingbutton);
+
+        AccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //アカウント画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Account.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ホーム画面に遷移
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+
+        SettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //設定画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Setting.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
 
 
         InputStream input = null;

@@ -16,6 +16,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -63,6 +64,7 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private Marker marker;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
+    ImageButton PostButton;
     //TextView textView = findViewById(R.id.textView);
     double Mylatitude; //自身のデバイスの緯度
     double Mylongitude; //自身のデバイスの経度
@@ -73,19 +75,54 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        ImageButton restartButton = findViewById(R.id.hugaButton);
+        ImageButton AccountButton = findViewById(R.id.Accountbutton);
+        PostButton = findViewById(R.id.PostButton);
+        ImageButton HomeButton = findViewById(R.id.Homebutton);
+        ImageButton SettingButton = findViewById(R.id.Settingbutton);
 
         //マップ上のピンをクリア
         //mMap.clear();
 
-
-
-
-        restartButton.setOnClickListener(new View.OnClickListener() {
+        AccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Activityをリスタートさせる
+                //アカウント画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Account.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+
+
+//                // 位置情報のパーミッションを確認
+//                if (ActivityCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                    // パーミッションが許可されていない場合、リクエストする
+//                    ActivityCompat.requestPermissions(MapsActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FINE_PERMISSION_CODE);
+//                    return;
+//                }
+
+                // 位置情報を取得
+//                fusedLocationProviderClient.getLastLocation()
+//                        .addOnSuccessListener(MapsActivity.this, new OnSuccessListener<Location>() {
+//                            @Override
+//                            public void onSuccess(Location location) {
+//                                if (location != null) {
+//                                    // 位置情報を他の画面に送信
+//                                    sendLocationToOtherActivity(location.getLatitude(), location.getLongitude());
+//                                }
+//                            }
+//                        });
+//            }
+//        });
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ホーム画面に遷移
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 finish();
                 startActivity(intent);
@@ -93,14 +130,24 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        SettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //設定画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Setting.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
         getLastLocation();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
     }
-
     //位置情報
     private void getLastLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -144,6 +191,16 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
             LatLng sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             mMap.addMarker(new MarkerOptions().position(sydney).title("現在地")); //icon()　で　brawableに入っている画像を使用する 例:icon(BitmapDescriptorFactory.fromResource(R.drawable.station_1))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        PostButton.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                      Intent Postintent = new Intent(MapsActivity.this, PostPreparation.class);
+                      Postintent.putExtra("latitude", sydney.latitude);
+                      Postintent.putExtra("longitude", sydney.longitude);
+                      startActivity(Postintent);
+                      }
+        });
 
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
@@ -321,25 +378,5 @@ public  class MapsActivity extends FragmentActivity implements OnMapReadyCallbac
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    private void addMarker(LatLng latLng) {
-        if (marker != null) {
-            marker.remove();
-        }
-        Toast.makeText(MapsActivity.this, "緯度: " + Mylatitude + ", 経度: " + Mylongitude, Toast.LENGTH_SHORT).show();
-        marker = mMap.addMarker(new MarkerOptions().position(latLng).title("現在地"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-    }
-
-
-    //場所の情報の取得
-//    @Override
-    public void onPoiClick(PointOfInterest poi) {
-        Toast.makeText(this, "場所：" +
-                        poi.name,
-//                        + "\nID:" + poi.placeId +
-//                        "\nLatitude:" + poi.latLng.latitude +
-//                        " Longitude:" + poi.latLng.longitude,
-                LENGTH_SHORT).show();
     }
 }

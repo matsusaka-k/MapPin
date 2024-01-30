@@ -72,8 +72,59 @@ public class Home extends FragmentActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Button PostButton = findViewById(R.id.PostButton);
+        Button AccountButton = findViewById(R.id.Accountbutton);
+        Button PostButton = findViewById(R.id.Postbutton2);
+        Button HomeButton = findViewById(R.id.Homebutton);
+        Button SettingButton = findViewById(R.id.Settingbutton);
+        Button PostButton2 = findViewById(R.id.PostButton);
+
+        AccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //アカウント画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Account.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
         PostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //投稿画面に遷移
+                Intent intent = new Intent(getApplicationContext(), PostPreparation.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ホーム画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Home.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+
+        SettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //設定画面に遷移
+                Intent intent = new Intent(getApplicationContext(), Setting.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+
+        PostButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(),PostPreparation.class);
@@ -108,8 +159,6 @@ public class Home extends FragmentActivity implements OnMapReadyCallback {
                     Mylatitude = location.getLatitude();
                     Mylongitude = location.getLongitude();
                     // ここで取得した緯度(latitude)と経度(longitude)を使用できます
-                    // 例えば、Toastで表示する場合
-                    Toast.makeText(getApplicationContext(), "緯度: " + Mylatitude + ", 経度: " + Mylongitude, Toast.LENGTH_SHORT).show();
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     mapFragment.getMapAsync(Home.this);
                 }
