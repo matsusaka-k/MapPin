@@ -1,13 +1,11 @@
 package jp.ac.ecc.se.mappin;
 
-import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.out;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +30,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -106,14 +104,26 @@ public class PostPreparation extends AppCompatActivity {
 
                 // 投稿ボタンのクリックを処理
                 String comment = comment_Text.getText().toString();
-                String imageData = imageUri.toString();
-                // HTTP接続用インスタンス生成
+
+                //画像パスにランダムな文字列を生成
+                int length = 100;
+                String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                Random random = new Random();
+                StringBuilder randomString = new StringBuilder();
+                for (int i = 0; i < length; i++) {
+                    int index = random.nextInt(characters.length());
+                    randomString.append(characters.charAt(index));
+                }
+                String imageDataPass = randomString.toString();
+
+                        // HTTP接続用インスタンス生成
                 OkHttpClient client = new OkHttpClient();
                 // JSON形式でパラメータを送るようデータ形式を設定
                 MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+                out.println("urlの列です"+ "https://click.ecc.ac.jp/ecc/hige_map_pin/DB_insert_postinfo.php/?" + "userID=" + userID + "&" + "comment=" + comment + "&" + "latitude=" + latitude + "&" + "longitude=" + longitude + "&" + "imageDataPass=" + imageDataPass);
                 // Requestを作成(先ほど設定したデータ形式とパラメータ情報をもとにリクエストデータを作成)
                 Request request = new Request.Builder()
-                        .url("https://click.ecc.ac.jp/ecc/hige_map_pin/DB_select_postinfo.php/?" + "user_id=" + userID + "&" + "post_text=" + comment + "&" + "latitude=" + latitude + "&" + "longitude=" + longitude + "&" + "post_img=" + imageData)
+                        .url("https://click.ecc.ac.jp/ecc/hige_map_pin/DB_insert_postinfo.php/?" + "userID=" + userID + "&" + "comment=" + comment + "&" + "latitude=" + latitude + "&" + "longitude=" + longitude + "&" + "imageDataPass=" + imageDataPass)
                         .get()
                         .build();
 
@@ -127,10 +137,11 @@ public class PostPreparation extends AppCompatActivity {
                             @Override
                             public void run() {
                                 out.println("リクエスト失敗");
-                                Toast.makeText(getApplicationContext(), "リクエストが失敗しました: " + e.getMessage(), LENGTH_SHORT).show();
+                                out.println("エラー内容です+"+e.getMessage());
                                 Log.d("DEBUG", "err = " + e.getMessage());
                             }
                         });
+
                     }
 
                     ///////////////////////////////////////// リクエストが成功した場合の処理を実装//////////////////////////////////
@@ -157,21 +168,15 @@ public class PostPreparation extends AppCompatActivity {
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
                         byte[] bytes = byteArrayOutputStream.toByteArray();
-                        String bites64Encoded = Base64.getEncoder().encodeToString(bytes);
+                        //Base64.getEncoder().encodeToString(bytes);の部分に赤字が出ても気にせず
+                        String bites64Encoded = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            bites64Encoded = Base64.getEncoder().encodeToString(bytes);
+                        }
 
                         out.println("画像データをbase64に変換したものです=" + bites64Encoded);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                byte[] hoge = Base64.getDecoder().decode(bites64Encoded);
-                                out.println("hogeの中身=" + hoge);
-                                Bitmap huga = BitmapFactory.decodeByteArray(hoge, 0, hoge.length);
-                                post_Image.setImageBitmap(huga);
-                            }
-                        });
-
-                        imageUploadMethod(bites64Encoded);
+                        UserPostImageFileUpload(bites64Encoded,imageDataPass);
 
                         //撮った画像をjpg形式で保存
                         //ByteArrayOutputStream jpg = new ByteArrayOutputStream();
@@ -223,17 +228,18 @@ public class PostPreparation extends AppCompatActivity {
         });
     }
 
-    public static void imageUploadMethod(String imageData) throws IOException {
+    public static void UserPostImageFileUpload(String imageData,String imageDataPass){
+
 
         // HTTP接続用インスタンス生成
         OkHttpClient client = new OkHttpClient();
         // JSON形式でパラメータを送るようデータ形式を設定
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         // Bodyのデータ(APIに渡したいパラメータを設定) PostSearchBoxに入力されたpost_idを渡す
-        String requestBody = "{\"imageData\":\"" + imageData + "\"}";
+        String requestBody = "{\"imageData\":\"" + imageData + "\",\"imageDataPass\":\"" + imageDataPass + "\"}";
         // Requestを作成(先ほど設定したデータ形式とパラメータ情報をもとにリクエストデータを作成)
-        Request request = new Request.Builder()
-                .url("https://click.ecc.ac.jp/ecc/hige_map_pin/image/ImageFileUpload.php")
+         Request request = new Request.Builder()
+                .url("https://click.ecc.ac.jp/ecc/hige_map_pin/image/user_post/UserPostImageFileUpload.php")
                 .post(RequestBody.create(requestBody, mediaType))
                 .build();
 
@@ -249,7 +255,8 @@ public class PostPreparation extends AppCompatActivity {
             ///////////////////// リクエストが成功した場合の処理を実装//////////////////////////////////
             @Override
             public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                out.println("リクエスト成功");
+                String body = response.body().string();
+                out.println("リクエストの結果"+body);
             }
         });
 
